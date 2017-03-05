@@ -1,0 +1,30 @@
+{
+  "name": "shu-ho-standalone",
+  "version": "0.0.1",
+  "description": "Shu-ho, a weekly-report editing application",
+  "scripts": {
+    "start": "./node_modules/.bin/electron .",
+    "bootlint": "/bin/cat index.html | ./node_modules/.bin/bootlint ",
+    "test": ""
+  },
+  "author": "Hiroki Ito <hiroki110@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "bootlint": "^0.14.2",
+    "devtron": "^1.4.0",
+    "electron-reload": "^1.1.0"
+  },
+  "dependencies": {
+    "ace-builds": "^1.2.6",
+    "bootstrap": "^3.3.7",
+    "electron": "^1.6.1",
+    "jquery": "^3.1.1",
+    "marked": "^0.3.6",
+    "moment": "^2.17.1",
+    "mustache": "^2.3.0",
+    "nodemailer": "^3.1.4",
+    "path": "^0.12.7",
+    "url": "^0.11.0"
+  },
+  "main": "main.js"
+}
