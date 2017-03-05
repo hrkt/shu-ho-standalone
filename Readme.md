@@ -4,6 +4,8 @@ Shu-ho standalone is a simple weekly report editor.
 
 ## Feature
 
+![Screenshot](doc/screenshot-0.0.1.png?raw=true "Screenshot v0.0.1")
+
 - Plain text based editor
 - Customizable templates
 - Sending a report by mail
