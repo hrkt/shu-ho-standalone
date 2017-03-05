@@ -149,9 +149,6 @@ const indexPage = new Vue({
         contentA: '# hint\nclick "Template" button to get template content.'
     },
     computed: {
-        // renderedContentA: function() {
-        //     return marked(this.contentA);
-        // }
     },
     methods: {
         renderedContentA: function() {
@@ -167,9 +164,6 @@ const indexPage = new Vue({
         },
         reset() {
             this.contentA = 'reset content for Editor A'
-        },
-        sendMail: function () {
-            alert("sendMail:");
         },
         template: function () {
             defaultTemplate();
