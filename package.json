@@ -13,7 +13,8 @@
     "build-v": "./node_modules/.bin/webpack --display-error-details --config webpack.config.js",
     "clean": "./node_modules/.bin/npm-run-all -s release:clean",
     "lint": "eslint .",
-    "package": "./node_modules/.bin/electron-packager . --overwrite  --prune=true --electron-version=1.6.1 --out=release --max-buffer-size=800",
+    // I'm writing patch for electron-packager now, so this line does not work in other environments.
+    // "package": "./node_modules/.bin/electron-packager . --overwrite  --prune=true --electron-version=1.6.1 --out=release --package-manager=yarn",
     "release:clean": "./node_modules/.bin/rimraf ./dist",
     "start": "./node_modules/.bin/electron .",
     "test": ""
@@ -31,7 +32,6 @@
     "electron-reload": "^1.1.0",
     "fs": "0.0.1-security",
     "html-loader": "^0.4.5",
-    "nodemailer": "^3.1.4",
     "npm-run-all": "^4.0.2",
     "path": "^0.12.7",
     "rimraf": "^2.6.1",
