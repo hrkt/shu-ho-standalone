@@ -2,12 +2,19 @@
   "name": "shu-ho-standalone",
   "version": "0.0.1",
   "description": "Shu-ho, a weekly-report editing application",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hrkt/shu-ho-standalone.git"
+  },
   "scripts": {
     "dev": "./node_modules/.bin/webpack-devserver --inline --hot",
     "bootlint": "/bin/cat index.html | ./node_modules/.bin/bootlint ",
     "build": "./node_modules/.bin/webpack --config webpack.config.js",
     "build-v": "./node_modules/.bin/webpack --display-error-details --config webpack.config.js",
-    "package": "./node_modules/.bin/electron-packager . --overwrite  --prune=true --ignore node_modules --electron-version=1.6.1 --out=release",
+    "clean": "./node_modules/.bin/npm-run-all -s release:clean",
+    "lint": "eslint .",
+    "package": "./node_modules/.bin/electron-packager . --overwrite  --prune=true --electron-version=1.6.1 --out=release --max-buffer-size=800",
+    "release:clean": "./node_modules/.bin/rimraf ./dist",
     "start": "./node_modules/.bin/electron .",
     "test": ""
   },
@@ -16,6 +23,7 @@
   "dependencies": {},
   "devDependencies": {
     "bootlint": "^0.14.2",
+    "brace": "^0.10.0",
     "css-loader": "^0.26.2",
     "devtron": "^1.4.0",
     "electron": "^1.6.1",
@@ -24,7 +32,9 @@
     "fs": "0.0.1-security",
     "html-loader": "^0.4.5",
     "nodemailer": "^3.1.4",
+    "npm-run-all": "^4.0.2",
     "path": "^0.12.7",
+    "rimraf": "^2.6.1",
     "style-loader": "^0.13.2",
     "url": "^0.11.0",
     "vue": "^2.2.1",

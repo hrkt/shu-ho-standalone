@@ -1,12 +1,34 @@
 'use strict';
 
-const fs = window.nodeRequire('fs');
+// const fs = window.nodeRequire('fs');
 
-const app = window.nodeRequire('electron').remote.app;
+// const path = window.nodeRequire('path');
 
-const mustache = window.nodeRequire('mustache');
+// const app = window.nodeRequire('electron').remote.app;
 
-const moment = window.nodeRequire('moment');
+// const mustache = window.nodeRequire('mustache');
+
+// const moment = window.nodeRequire('moment');
+
+//const jQuery = require('jquery');
+
+const fs = require('fs');
+
+const path = require('path');
+
+const app = require('electron').remote.app;
+
+const mustache = require('mustache');
+
+const moment = require('moment');
+
+const ace = require('brace');
+
+const bootstrap = require('bootstrap');
+
+const marked = require('marked');
+
+const Vue = require('vue');
 
 moment.locale('ja', {
     weekdays: ["日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日"],
@@ -82,14 +104,14 @@ function sendMail() {
 }
 
 function saveSettings() {
-    const txt = '{"key": "Hello"}';
-    try {
-        alert(app.getPath('userData'));
-        fs.writeFileSync(app.getPath('userData') + '/shu-ho-settings.json', txt, 'utf-8');
-        console.log('Saved settings!');
-    } catch (err) {
-        throw err;
-    }
+    // const txt = '{"key": "Hello"}';
+    // try {
+    //     alert(app.getPath('userData'));
+    //     fs.writeFileSync(app.getPath('userData') + '/shu-ho-settings.json', txt, 'utf-8');
+    //     console.log('Saved settings!');
+    // } catch (err) {
+    //     throw err;
+    // }
 }
 
 // from
@@ -118,8 +140,8 @@ Vue.component('Editor', {
         this.editor.setValue(this.content, 1)
 
         // mode-xxx.js or theme-xxx.jsがある場合のみ有効
-        this.editor.getSession().setMode(`ace/mode/${lang}`)
-        this.editor.setTheme(`ace/theme/${theme}`)
+        // this.editor.getSession().setMode(`brace/mode/${lang}`)
+        // this.editor.setTheme(`blace/theme/${theme}`)
 
         this.editor.setOptions({
             // maxLines: Infinity
@@ -138,7 +160,7 @@ Vue.component('Previewer', {
     template: '<div :id="previewerId" style="width: 100%; height: 100%;" v-html="content"></div>',
     props: ['previewerId'],
     computed: {
-        content: function() {return indexPage.renderedContentA()}
+        content: function () { return indexPage.renderedContentA() }
     }
 });
 
@@ -151,7 +173,7 @@ const indexPage = new Vue({
     computed: {
     },
     methods: {
-        renderedContentA: function() {
+        renderedContentA: function () {
             return marked(this.contentA);
         },
         changeContentA(val) {

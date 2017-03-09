@@ -8,15 +8,15 @@
 
     <!-- https://electron.atom.io/docs/faq/ -->
     <!-- disable default requre method, and set it to window.nodeRequire -->
-    <script>
+    <!--<script>
         window.nodeRequire = require;
         delete window.require;
         delete window.exports;
         delete window.module;
-    </script>
+    </script>-->
 
     <title>Shu-ho standalone</title>
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css" />
 </head>
 
 <body>
@@ -68,18 +68,7 @@
             </div>
         </div>
 
-        <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="./node_modules/vue/dist/vue.min.js"></script>
-
-        <script src="./node_modules/ace-builds/src-min-noconflict/ace.js"></script>
-        <script src="./node_modules/ace-builds/src-min-noconflict/mode-text.js"></script>
-        <script src="./node_modules/ace-builds/src-min-noconflict/theme-twilight.js"></script>
-        <script src="./node_modules/marked/lib/marked.js"></script>
-        <script src="./node_modules/vue/dist/vue.min.js"></script>
-
-        <script src="./js/page/index.js"></script>
-
+        <script src="dist/bundle.js"></script>
 </body>
 
 </html>
