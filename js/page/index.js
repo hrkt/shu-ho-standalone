@@ -100,17 +100,51 @@ function sendMail(url) {
   console.log(">>defaultTemplate()");
   const link = document.querySelector('.send-mail-link');
   link.click();
+
+  // var elem = this.$refs.sendMailLink;
+  // var prevented = elem.dispatchEvent(new Event("click"));
+  // if (prevented) { } // A handler used event.preventDefault();  
+}
+
+function loadLast(buf) {
+  console.log(">>loadLastBuffer()");
+  try {
+      const jsonStr = fs.readFileSync(app.getPath('userData') + '/currentBuffer.json', 'utf-8');
+      const json = JSON.parse(jsonStr);
+      const b64Txt = json['buf'];
+      const b = new Buffer(b64Txt, 'base64');
+      console.log('Load last buffer.');
+      return b.toString();
+  } catch (err) {
+      // return empty string when the buffer file is not found
+      return "";
+      //throw err;
+  }
+}
+
+function saveCurrent(buf) {
+  console.log(">>saveCurrent()");
+  const b = new Buffer(buf);
+  const b64Txt = b.toString('base64');
+  const txt = '{"buf": "' + b64Txt + '"}';
+  try {
+      fs.writeFileSync(app.getPath('userData') + '/currentBuffer.json', txt, 'utf-8');
+      console.log('Saved current buffer.');
+  } catch (err) {
+      throw err;
+  }
 }
 
 function saveSettings() {
-  // const txt = '{"key": "Hello"}';
-  // try {
-  //     alert(app.getPath('userData'));
-  //     fs.writeFileSync(app.getPath('userData') + '/shu-ho-settings.json', txt, 'utf-8');
-  //     console.log('Saved settings!');
-  // } catch (err) {
-  //     throw err;
-  // }
+  console.log(">>saveSettings()");
+  const txt = '{"key": "Hello"}';
+  try {
+      alert(app.getPath('userData'));
+      fs.writeFileSync(app.getPath('userData') + '/shu-ho-settings.json', txt, 'utf-8');
+      console.log('Saved settings.');
+  } catch (err) {
+      throw err;
+  }
 }
 
 // from
@@ -170,7 +204,7 @@ const indexPage = new Vue({
     contentA: '# hint\nclick "Template" button to get template content.'
   },
   computed: {
-    mailLinkA: function() {
+    mailLinkA: function () {
       return composeMailLink(this.contentA);
     }
   },
@@ -194,8 +228,14 @@ const indexPage = new Vue({
     reset() {
       this.contentA = 'reset content for Editor A'
     },
+    loadLastBuffer: function() {
+      this.contentA = loadLast();
+    },
     template: function () {
       defaultTemplate();
+    },
+    saveCurrentBuffer: function() {
+      saveCurrent(this.contentA);
     },
     sendMail: function () {
       sendMail(this.mailLinkA);
