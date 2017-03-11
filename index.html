@@ -21,7 +21,7 @@
       <div v-if="page === 'editor'">
         <div class="col-md-12">
           <input type="hidden">
-          <a href="mailto://" class="send-mail-link"></a>
+          <a v-bind:href="mailLinkA" class="send-mail-link"></a>
           </input>
           <button type="button" class="btn btn-link" v-on:click="template()"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>Template</button>
           <button type="button" class="btn btn-link" disabled><span class="glyphicon glyphicon-copy" aria-hidden="true"></span>Copy from the last report</button>

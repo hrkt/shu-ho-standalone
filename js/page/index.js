@@ -92,14 +92,13 @@ function encodeBody(text) {
   return text.replace(/\n/g, " %0D%0A ");
 }
 
-function composeMailLink() {
-  return "mailto:" + getSubmitAddress() + "?subject=" + getSubject() + "&body=" + encodeBody(indexPage.contentA);
+function composeMailLink(content) {
+  return "mailto:" + getSubmitAddress() + "?subject=" + getSubject() + "&body=" + encodeBody(content);
 }
 
-function sendMail() {
+function sendMail(url) {
   console.log(">>defaultTemplate()");
   const link = document.querySelector('.send-mail-link');
-  link.href = composeMailLink();
   link.click();
 }
 
@@ -171,6 +170,9 @@ const indexPage = new Vue({
     contentA: '# hint\nclick "Template" button to get template content.'
   },
   computed: {
+    mailLinkA: function() {
+      return composeMailLink(this.contentA);
+    }
   },
   methods: {
     renderedContentA: function () {
@@ -179,6 +181,11 @@ const indexPage = new Vue({
     changeContentA(val) {
       if (this.contentA !== val) {
         this.contentA = val
+      }
+    },
+    changeMailLinkA(val) {
+      if (this.mailLinkA !== val) {
+        this.mailLinkA = val
       }
     },
     getContentA() {
@@ -191,7 +198,7 @@ const indexPage = new Vue({
       defaultTemplate();
     },
     sendMail: function () {
-      sendMail();
+      sendMail(this.mailLinkA);
     },
     showEditor: function () {
       this.page = 'editor';
