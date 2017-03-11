@@ -26,5 +26,6 @@ module.exports = {
       'ace-builds': 'ace-builds/src-min-nonconflict/ace.js'
     }
   },
-  target: "electron"
+  target: "electron",
+  devtool: 'source-map'
 };
