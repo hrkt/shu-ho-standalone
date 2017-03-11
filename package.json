@@ -12,6 +12,7 @@
     "build-w": "./node_modules/.bin/webpack --config webpack.config.js --watch",
     "build-v": "./node_modules/.bin/webpack --display-error-details --config webpack.config.js",
     "clean": "./node_modules/.bin/npm-run-all -s release:clean",
+    "dev": "NODE_ENV=develop ./node_modules/.bin/electron .",
     "lint": "eslint .",
     "release:clean": "./node_modules/.bin/rimraf ./dist",
     "start": "./node_modules/.bin/electron .",

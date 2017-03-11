@@ -31,7 +31,10 @@ function createWindow() {
   }))
 
   // invoke dev tools 
-  mainWindow.webContents.openDevTools();
+  console.log(process.env.NODE_ENV);
+  if(process.env.NODE_ENV == 'develop') {
+    mainWindow.webContents.openDevTools();
+  }
 
   // window is closed
   mainWindow.on('closed', function () {
