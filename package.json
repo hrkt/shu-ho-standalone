@@ -7,7 +7,6 @@
     "url": "git+https://github.com/hrkt/shu-ho-standalone.git"
   },
   "scripts": {
-    "dev": "./node_modules/.bin/webpack-devserver --inline --hot",
     "bootlint": "/bin/cat index.html | ./node_modules/.bin/bootlint ",
     "build": "./node_modules/.bin/webpack --config webpack.config.js",
     "build-w": "./node_modules/.bin/webpack --config webpack.config.js --watch",
@@ -37,8 +36,7 @@
     "style-loader": "^0.13.2",
     "url": "^0.11.0",
     "vue": "^2.2.1",
-    "webpack": "^2.2.1",
-    "webpack-devserver": "0.0.6"
+    "webpack": "^2.2.1"
   },
   "main": "main.js",
   "node": {
