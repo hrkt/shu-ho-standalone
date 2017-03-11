@@ -10,11 +10,10 @@
     "dev": "./node_modules/.bin/webpack-devserver --inline --hot",
     "bootlint": "/bin/cat index.html | ./node_modules/.bin/bootlint ",
     "build": "./node_modules/.bin/webpack --config webpack.config.js",
+    "build-w": "./node_modules/.bin/webpack --config webpack.config.js --watch",
     "build-v": "./node_modules/.bin/webpack --display-error-details --config webpack.config.js",
     "clean": "./node_modules/.bin/npm-run-all -s release:clean",
     "lint": "eslint .",
-    // I'm writing patch for electron-packager now, so this line does not work in other environments.
-    // "package": "./node_modules/.bin/electron-packager . --overwrite  --prune=true --electron-version=1.6.1 --out=release --package-manager=yarn",
     "release:clean": "./node_modules/.bin/rimraf ./dist",
     "start": "./node_modules/.bin/electron .",
     "test": ""
@@ -41,5 +40,8 @@
     "webpack": "^2.2.1",
     "webpack-devserver": "0.0.6"
   },
-  "main": "main.js"
+  "main": "main.js",
+  "node": {
+    "fs": "empty"
+  }
 }
