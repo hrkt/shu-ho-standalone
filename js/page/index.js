@@ -1,17 +1,5 @@
 'use strict';
 
-// const fs = window.nodeRequire('fs');
-
-// const path = window.nodeRequire('path');
-
-// const app = window.nodeRequire('electron').remote.app;
-
-// const mustache = window.nodeRequire('mustache');
-
-// const moment = window.nodeRequire('moment');
-
-//const jQuery = require('jquery');
-
 const fs = require('fs');
 
 const path = require('path');
