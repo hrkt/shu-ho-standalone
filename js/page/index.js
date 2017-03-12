@@ -194,6 +194,9 @@ const indexPage = new Vue({
   computed: {
     mailLinkA: function () {
       return composeMailLink(this.contentA);
+    }, 
+    appVersion: function() {
+      return process.env.npm_package_version;
     }
   },
   methods: {
