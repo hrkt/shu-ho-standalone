@@ -24,7 +24,7 @@ moment.locale('ja', {
 });
 
 function calcStartDate() {
-  const s = moment(new Date(2017, 3 - 1, 8));
+  const s = moment(new Date());
   return startDayOfWeekFor(s);
 }
 
@@ -36,12 +36,9 @@ function startDayOfWeekFor(d) {
   return d.subtract(d.day() - 1, "day");
 }
 
-function defaultTemplate() {
-  console.log(">>defaultTemplate()");
-  let startDate = calcStartDate();
-  var buf = "";
+function week(startDate) {
   var template = "";
-  template += "|日付       |概要|" + "\n";
+  template += "|Date       |Work|" + "\n";
   template += "|:---------|:--|" + "\n";
   const defaultWork = "作業日";
   for (var i of [1, 2, 3, 4, 5, 6, 7]) {
@@ -58,8 +55,24 @@ function defaultTemplate() {
     }
     d.add(1, "day");
   }
-  var rendered = mustache.render(template, values);
-  buf += rendered;
+  return mustache.render(template, values);
+}
+
+function defaultTemplate() {
+  console.log(">>defaultTemplate()");
+
+  var buf = "";
+
+  const title1 = "## Record of the week\n\n";
+  buf += title1;
+  buf += week(calcStartDate().subtract(7, 'day'));
+
+  const title2 = "\n\n## Plan for the next week\n\n";
+  buf += title2;
+  buf += week(calcStartDate());
+
+  const title3 = "\n\n## Topics\n\n";
+  buf += title3;
 
   indexPage.changeContentA(buf);
 }
@@ -137,8 +150,8 @@ function saveSettings() {
 
 // from
 // http://kuroeveryday.blogspot.jp/2016/10/ace-editor-for-vuejs.html
-Vue.component('Editor', {
-  template: '<div :id="editorId" style="width: 100%; height: 100%;"></div>',
+Vue.component('editor', {
+  template: '<div :id="editorId" style="width: 100%; height: 100%;" ref="editor"></div>',
   props: ['editorId', 'content', 'lang', 'theme'],
   data() {
     return {
@@ -177,7 +190,7 @@ Vue.component('Editor', {
   }
 });
 
-Vue.component('Previewer', {
+Vue.component('previewer', {
   template: '<div :id="previewerId" style="width: 100%; height: 100%;" v-html="content"></div>',
   props: ['previewerId'],
   computed: {
@@ -207,6 +220,8 @@ const indexPage = new Vue({
       if (this.contentA !== val) {
         this.contentA = val
       }
+      // $refs.editor.selection.moveCursorToPosition({row: 1, column: 0});
+      // $refs.editor.selection.selectLine();
     },
     changeMailLinkA(val) {
       if (this.mailLinkA !== val) {
