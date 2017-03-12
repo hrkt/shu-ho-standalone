@@ -110,16 +110,16 @@ function sendMail(url) {
 function loadLast(buf) {
   console.log(">>loadLastBuffer()");
   try {
-      const jsonStr = fs.readFileSync(app.getPath('userData') + '/currentBuffer.json', 'utf-8');
-      const json = JSON.parse(jsonStr);
-      const b64Txt = json['buf'];
-      const b = new Buffer(b64Txt, 'base64');
-      console.log('Load last buffer.');
-      return b.toString();
+    const jsonStr = fs.readFileSync(app.getPath('userData') + '/currentBuffer.json', 'utf-8');
+    const json = JSON.parse(jsonStr);
+    const b64Txt = json['buf'];
+    const b = new Buffer(b64Txt, 'base64');
+    console.log('Load last buffer.');
+    return b.toString();
   } catch (err) {
-      // return empty string when the buffer file is not found
-      return "";
-      //throw err;
+    // return empty string when the buffer file is not found
+    return "";
+    //throw err;
   }
 }
 
@@ -129,10 +129,10 @@ function saveCurrent(buf) {
   const b64Txt = b.toString('base64');
   const txt = '{"buf": "' + b64Txt + '"}';
   try {
-      fs.writeFileSync(app.getPath('userData') + '/currentBuffer.json', txt, 'utf-8');
-      console.log('Saved current buffer.');
+    fs.writeFileSync(app.getPath('userData') + '/currentBuffer.json', txt, 'utf-8');
+    console.log('Saved current buffer.');
   } catch (err) {
-      throw err;
+    throw err;
   }
 }
 
@@ -140,11 +140,11 @@ function saveSettings() {
   console.log(">>saveSettings()");
   const txt = '{"key": "Hello"}';
   try {
-      alert(app.getPath('userData'));
-      fs.writeFileSync(app.getPath('userData') + '/shu-ho-settings.json', txt, 'utf-8');
-      console.log('Saved settings.');
+    alert(app.getPath('userData'));
+    fs.writeFileSync(app.getPath('userData') + '/shu-ho-settings.json', txt, 'utf-8');
+    console.log('Saved settings.');
   } catch (err) {
-      throw err;
+    throw err;
   }
 }
 
@@ -207,8 +207,8 @@ const indexPage = new Vue({
   computed: {
     mailLinkA: function () {
       return composeMailLink(this.contentA);
-    }, 
-    appVersion: function() {
+    },
+    appVersion: function () {
       return process.env.npm_package_version;
     }
   },
@@ -220,8 +220,6 @@ const indexPage = new Vue({
       if (this.contentA !== val) {
         this.contentA = val
       }
-      // $refs.editor.selection.moveCursorToPosition({row: 1, column: 0});
-      // $refs.editor.selection.selectLine();
     },
     changeMailLinkA(val) {
       if (this.mailLinkA !== val) {
@@ -234,13 +232,13 @@ const indexPage = new Vue({
     reset() {
       this.contentA = 'reset content for Editor A'
     },
-    loadLastBuffer: function() {
+    loadLastBuffer: function () {
       this.contentA = loadLast();
     },
     template: function () {
       defaultTemplate();
     },
-    saveCurrentBuffer: function() {
+    saveCurrentBuffer: function () {
       saveCurrent(this.contentA);
     },
     sendMail: function () {
