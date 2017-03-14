@@ -18,10 +18,7 @@ Shu-ho standalone is a simple weekly report editor.
 
 ## Changelog
 
-### [0.0.1] - 2017-03-03
-
-- first commit
-
+see release page
 
 ## Future work
 

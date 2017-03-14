@@ -3,7 +3,7 @@
 ## App
 
 - [x] enable save buffer function
-- [ ] a rich template
+- [ ] enrich template
 
 ## DevEnv
 
