@@ -13,10 +13,11 @@
     "build-v": "./node_modules/.bin/webpack --display-error-details --config webpack.config.js",
     "clean": "./node_modules/.bin/npm-run-all -s release:clean",
     "dev": "NODE_ENV=develop ./node_modules/.bin/electron .",
-    "lint": "eslint .",
+    "lint": "./node_modules/.bin/eslint js",
     "release:clean": "./node_modules/.bin/rimraf ./dist",
     "start": "./node_modules/.bin/electron .",
-    "test": ""
+    "test": "",
+    "version": "ELECTRON_RUN_AS_NODE=1 ./node_modules/.bin/electron -e 'process.stdout.write(process.versions.modules)'"
   },
   "author": "Hiroki Ito <hiroki110@gmail.com>",
   "license": "MIT",
@@ -29,6 +30,7 @@
     "electron": "^1.6.1",
     "electron-packager": "^8.5.2",
     "electron-reload": "^1.1.0",
+    "eslint": "^3.17.1",
     "fs": "0.0.1-security",
     "html-loader": "^0.4.5",
     "npm-run-all": "^4.0.2",
