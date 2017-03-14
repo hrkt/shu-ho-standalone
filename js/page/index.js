@@ -212,6 +212,9 @@ const indexPage = new Vue({
       return process.env.npm_package_version;
     }
   },
+  created: function(){
+    this.loadLastBuffer();
+  },
   methods: {
     renderedContentA: function () {
       return marked(this.contentA);
