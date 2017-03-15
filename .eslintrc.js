@@ -1,7 +1,9 @@
 module.exports = {
-    "extends": "standard",
+    "extends": ["vue"],
     "plugins": [
-        "standard",
         "promise"
-    ]
+    ],
+	"rules": {
+		"semi": ["warn", "always"]
+	}
 };
