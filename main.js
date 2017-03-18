@@ -1,17 +1,17 @@
-'use strict';
+'use strict'
 
 const electron = require('electron')
 const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 
 // for auto reloading in dev env
-//require('electron-reload')(__dirname);
+//require('electron-reload')(__dirname)
 
-const path = require('path');
-const url = require('url');
+const path = require('path')
+const url = require('url')
 
 // Main window 
-let mainWindow;
+let mainWindow
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -31,9 +31,9 @@ function createWindow() {
   }))
 
   // invoke dev tools 
-  console.log(process.env.NODE_ENV);
+  console.log(process.env.NODE_ENV)
   if(process.env.NODE_ENV == 'develop') {
-    mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools()
   }
 
   // window is closed
@@ -44,7 +44,7 @@ function createWindow() {
 
 
 //  app is ready
-app.on('ready', createWindow);
+app.on('ready', createWindow)
 
 // all windows are closed
 app.on('window-all-closed', function () {
@@ -58,6 +58,6 @@ app.on('window-all-closed', function () {
 app.on('activate', function () {
   /// when we dont have main window, create it.
   if (mainWindow === null) {
-    createWindow();
+    createWindow()
   }
-});
+})
