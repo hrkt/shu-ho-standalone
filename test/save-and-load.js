@@ -8,12 +8,16 @@ const assert = chai.assert
 const target = require('../js/service/file-io')
 
 describe('list files', function () {
+  const list = target.getFilenames('.')
+  console.log(list)
+
   it('reads directory without error', function () {
-    expect(target.getFilenames('/tmp')).to.be.a('array')
+    expect(target.getFilenames('.')).to.be.a('array')
   })
 
-  const list = target.getFilenames('/tmp')
-  console.log(list)
+  it('returns at least 3 filenames', function () {
+    expect(target.getFilenames('.')).to.have.length.of.at.least(3)
+  })
 
   it('throws an error when directory does not exist', function () {
     try {
