@@ -4,6 +4,9 @@
 
 - [x] enable save buffer function
 - [ ] enrich template
+- [ ] copy template function
+- [ ] history list view
+- [ ] history model
 
 ## DevEnv
 
