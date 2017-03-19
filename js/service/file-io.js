@@ -1,4 +1,4 @@
-const fs = require('fs')
+import fs from 'fs'
 
 exports.getFilenames = function (dir) {
   const list = fs.readdirSync(dir)
