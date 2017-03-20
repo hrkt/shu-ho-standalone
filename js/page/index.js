@@ -1,24 +1,16 @@
 'use strict'
 
-const fs = require('fs')
-
-const path = require('path')
-
-const mkdirp = require('mkdirp')
-
-const app = require('electron').remote.app
-
-const mustache = require('mustache')
-
-const moment = require('moment')
-
-const ace = require('brace')
-
-const bootstrap = require('bootstrap')
-
-const marked = require('marked')
-
-const Vue = require('vue')
+import fs from 'fs'
+import path from 'path'
+import mkdirp from 'mkdirp'
+import electron from 'electron'
+const app=electron.remote.app
+import mustache from 'mustache'
+import moment from 'moment'
+import ace from 'brace'
+import bootstrap from 'bootstrap'
+import marked from 'marked'
+import Vue from 'vue'
 
 moment.locale('ja', {
   weekdays: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
