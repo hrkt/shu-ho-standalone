@@ -233,6 +233,19 @@ Vue.component('previewer', {
   }
 })
 
+Vue.component('history-items', {
+  template: '<div :id=\'history-items\' style=\'width: 100% height: 100%\' >\
+  <ul>\
+  <li v-for="item in items">\
+    {{ item.value }}\
+  </li>\
+  </ul>\
+  </div>',
+  data: function() {
+    return {items: [{value:"1"}, {value:"2"}, {value:"3"}]}
+  }
+})
+
 const indexPage = new Vue({
   el: '#index',
   data: {
@@ -248,6 +261,7 @@ const indexPage = new Vue({
     }
   },
   created: function () {
+    //this.page = 'history-items'
     this.loadLastBuffer()
   },
   methods: {
@@ -284,6 +298,9 @@ const indexPage = new Vue({
     },
     showEditor: function () {
       this.page = 'editor'
+    },
+    showHistory: function () {
+      this.page = 'history-items'
     },
     showPreview: function () {
       this.page = 'preview'
