@@ -7,9 +7,6 @@
 import marked from 'marked'
 
 export default {
-  // computed: {
-  //   content: function () { return indexPage.renderedContentA() }
-  // },
   computed: {
     content: function () { 
       return marked(this.parentContent)
