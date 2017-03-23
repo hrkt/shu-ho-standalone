@@ -2,22 +2,27 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './js/page/index.js',
+  entry: './src/js/app-main.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   module: {
-   loaders: [
-      { 
-        test: /\.js$/, 
-        exclude: /node_modules/, 
-        loader: "babel-loader", 
-        query:{
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "babel-loader",
+        query: {
           presets: ['es2015']
-        }
+        },
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
       }
-    ]  },
+    ],
+  },
   plugins: [
     new webpack.ProvidePlugin({
       $: "jquery",
@@ -27,7 +32,6 @@ module.exports = {
   resolve: {
     modules: [
       path.resolve('..', 'node_modules'),
-      '/Users/hiroki/work/shu-ho-standalone/node_modules',
       'node_modules'
     ],
     alias: {

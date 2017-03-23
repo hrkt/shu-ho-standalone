@@ -1,3 +1,67 @@
+<template>
+  <div id="index" class="container">
+    <div class="page-header">
+      <h1>Shu-ho<small> Standalone {{appVersion}}</small>
+        <button type="button" class="btn btn-link" onClick="saveSettings()" disabled><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Settings</button>
+      </h1>
+    </div>
+    <div class="row">
+      <div v-if="page === 'editor'">
+        <div class="col-md-12">
+          <input type="hidden">
+          <a v-bind:href="mailLinkA" class="send-mail-link"></a>
+          </input>
+          <button type="button" class="btn btn-link" v-on:click="template()"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>Template</button>
+          <button type="button" class="btn btn-link" disabled><span class="glyphicon glyphicon-copy" aria-hidden="true"></span>Copy from the last report</button>
+          <button type="button" class="btn btn-link" v-on:click="saveCurrentBuffer()"><span class="glyphicon glyphicon-save" aria-hidden="true"></span>Save current</button>
+          <button type="button" class="btn btn-link" v-on:click="loadLastBuffer()"><span class="glyphicon glyphicon-open" aria-hidden="true"></span>Load Last</button>
+          <button type="button" class="btn btn-link send-mail" v-on:click="sendMail"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>Send Mail</button>
+          <button type="button" class="btn btn-link" v-on:click="showPreview()"><span class="glyphicon glyphicon-play" aria-hidden="true"></span>Preview</button>
+        </div>
+      </div>
+      <div v-if="page === 'preview'">
+        <div class="col-md-12">
+          [Preview]
+          <button type="button" class="btn btn-link" v-on:click="showEditor()"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>Edit</button>
+        </div>
+      </div>
+    </div>
+
+    <hr>
+
+    <div v-if="page === 'editor'">
+      <div class="row">
+        <div class="col-md-12">
+          <div style="height: 400px">
+            <editor editor-id="editorA" theme="twilight" :content="contentA" v-on:change-content="changeContentA"></editor>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="page === 'preview'">
+      <div class="row">
+        <div class="col-md-12">
+          <div class='preview' style="height: 400px">
+            <previewer previewer-id="previewerA" v-bind:parentContent='contentA'></previewer>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="page === 'history-items'">
+      <div class="row">
+        <div class="col-md-12">
+          <div style="height: 400px">
+            <h2>History</h2>
+            <history-items previewer-id="previewerA"></history-items>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+
 'use strict'
 
 import fs from 'fs'
@@ -9,8 +73,10 @@ import mustache from 'mustache'
 import moment from 'moment'
 import ace from 'brace'
 import bootstrap from 'bootstrap'
-import marked from 'marked'
 import Vue from 'vue'
+
+import EditorComponent from './Editor.vue'
+import PreviewerComponent from './Previewer.vue'
 
 moment.locale('ja', {
   weekdays: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
@@ -52,7 +118,7 @@ function week(startDate) {
   return mustache.render(template, values)
 }
 
-function defaultTemplate() {
+function defaultTemplate(app) {
   console.log('>>defaultTemplate()')
 
   var buf = ''
@@ -68,7 +134,7 @@ function defaultTemplate() {
   const title3 = '\n\n## Topics\n\n'
   buf += title3
 
-  indexPage.changeContentA(buf)
+  app.changeContentA(buf)
 }
 
 function getReportDateStr() {
@@ -225,13 +291,13 @@ Vue.component('editor', {
   }
 })
 
-Vue.component('previewer', {
-  template: '<div :id=\'previewerId\' style=\'width: 100% height: 100%\' v-html=\'content\'></div>',
-  props: ['previewerId'],
-  computed: {
-    content: function () { return indexPage.renderedContentA() }
-  }
-})
+// Vue.component('previewer', {
+//   template: '<div :id=\'previewerId\' style=\'width: 100% height: 100%\' v-html=\'content\'></div>',
+//   props: ['previewerId'],
+//   computed: {
+//     content: function () { return indexPage.renderedContentA() }
+//   }
+// })
 
 Vue.component('history-items', {
   template: '<div :id=\'history-items\' style=\'width: 100% height: 100%\' >\
@@ -246,28 +312,28 @@ Vue.component('history-items', {
   }
 })
 
-const indexPage = new Vue({
-  el: '#index',
-  data: {
-    page: 'editor',
-    contentA: '# hint\nclick \'Template\' button to get template content.'
+// const indexPage = new Vue({
+module.exports = {
+  components: {
+    previewer: PreviewerComponent
   },
   computed: {
     mailLinkA: function () {
       return composeMailLink(this.contentA)
-    },
-    appVersion: function () {
-      return process.env.npm_package_version
     }
   },
   created: function () {
     //this.page = 'history-items'
     this.loadLastBuffer()
   },
+  data: function() {
+    return {
+      page: 'editor',
+      contentA: '# hint\nclick \'Template\' button to get template content.',
+      appVersion: process.env.npm_package_version
+    }
+  },
   methods: {
-    renderedContentA: function () {
-      return marked(this.contentA)
-    },
     changeContentA(val) {
       if (this.contentA !== val) {
         this.contentA = val
@@ -288,7 +354,7 @@ const indexPage = new Vue({
       this.contentA = loadLast()
     },
     template: function () {
-      defaultTemplate()
+      defaultTemplate(this)
     },
     saveCurrentBuffer: function () {
       saveCurrent(this.contentA)
@@ -306,4 +372,7 @@ const indexPage = new Vue({
       this.page = 'preview'
     }
   }
-})
+}
+
+
+</script>
