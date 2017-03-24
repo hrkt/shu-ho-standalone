@@ -237,8 +237,7 @@ function getFilenames() {
   })
   return list
 }
-// 
-// const indexPage = new Vue({
+
 module.exports = {
   components: {
     editor: EditorComponent,
@@ -301,6 +300,5 @@ module.exports = {
     }
   }
 }
-
 
 </script>
