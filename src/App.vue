@@ -52,7 +52,7 @@
         <div class="col-md-12">
           <div style="height: 400px">
             <h2>History</h2>
-            <history-items previewer-id="previewerA"></history-items>
+            <history-items histroy-id="historyA"></history-items>
           </div>
         </div>
       </div>
@@ -77,6 +77,7 @@ import Vue from 'vue'
 
 import EditorComponent from './Editor.vue'
 import PreviewerComponent from './Previewer.vue'
+import HistoryComponent from './History.vue'
 
 moment.locale('ja', {
   weekdays: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
@@ -248,25 +249,13 @@ function getFilenames() {
   })
   return list
 }
-
-Vue.component('history-items', {
-  template: '<div :id=\'history-items\' style=\'width: 100% height: 100%\' >\
-  <ul>\
-  <li v-for="item in items">\
-    {{ item.value }}\
-  </li>\
-  </ul>\
-  </div>',
-  data: function() {
-    return {items: [{value:"1"}, {value:"2"}, {value:"3"}]}
-  }
-})
-
+// 
 // const indexPage = new Vue({
 module.exports = {
   components: {
-    previewer: PreviewerComponent,
-    editor: EditorComponent
+    editor: EditorComponent,
+    'history-items': HistoryComponent,
+    previewer: PreviewerComponent
   },
   computed: {
     mailLinkA: function () {
@@ -274,7 +263,7 @@ module.exports = {
     }
   },
   created: function () {
-    //this.page = 'history-items'
+    this.page = 'history-items'
     this.loadLastBuffer()
   },
   data: function() {
