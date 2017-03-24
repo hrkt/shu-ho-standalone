@@ -1,8 +1,8 @@
 module.exports = {
   "extends": ["vue"],
   "plugins": [
-    "promise"
-    "mocha"
+    "promise",
+    "mocha",
     "chai-expect"
   ],
   "rules": {
