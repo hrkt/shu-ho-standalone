@@ -4,7 +4,7 @@ Shu-ho standalone is a simple weekly report editor.
 
 ## Feature
 
-![Screenshot](doc/screenshot-0.0.1.png?raw=true "Screenshot v0.0.1")
+![Screenshot](doc/screenshot-0.0.3.png?raw=true "Screenshot v0.0.3")
 
 - Plain text based editor
 - Customizable templates
@@ -39,6 +39,11 @@ see Todo.md
 ## Rules
 
 - eslint: based on vue.js style. https://github.com/vuejs/eslint-config-vue
+
+## Tracker
+
+- Project https://github.com/hrkt/shu-ho-standalone/projects/1
+- slack channel https://hrkt-private-channel.slack.com/messages/C4PFF2728/
 
 ## LICENSE
 
