@@ -78,24 +78,12 @@ import Vue from 'vue'
 import EditorComponent from './Editor.vue'
 import PreviewerComponent from './Previewer.vue'
 import HistoryComponent from './History.vue'
+import * as dateUtil from './js/date-util.js'
 
 moment.locale('ja', {
   weekdays: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
   weekdaysShort: ['日', '月', '火', '水', '木', '金', '土'],
 })
-
-function calcStartDate() {
-  const s = moment(new Date())
-  return startDayOfWeekFor(s)
-}
-
-function isOffDay(d) {
-  return d.day() == 0 || d.day() == 6
-}
-
-function startDayOfWeekFor(d) {
-  return d.subtract(d.day() - 1, 'day')
-}
 
 function week(startDate) {
   var template = ''
@@ -109,7 +97,7 @@ function week(startDate) {
   var d = startDate
   for (var i of [1, 2, 3, 4, 5, 6, 7]) {
     values['date' + i] = d.format('MM-DD(ddd)')
-    if (isOffDay(d)) {
+    if (dateUtil.isOffDay(d)) {
       values['work' + i] = '休み'
     } else {
       values['work' + i] = defaultWork
@@ -126,11 +114,11 @@ function defaultTemplate(app) {
 
   const title1 = '## Record of the week\n\n'
   buf += title1
-  buf += week(calcStartDate().subtract(7, 'day'))
+  buf += week(dateUtil.calcStartDate().subtract(7, 'day'))
 
   const title2 = '\n\n## Plan for the next week\n\n'
   buf += title2
-  buf += week(calcStartDate())
+  buf += week(dateUtil.calcStartDate())
 
   const title3 = '\n\n## Topics\n\n'
   buf += title3
@@ -139,7 +127,7 @@ function defaultTemplate(app) {
 }
 
 function getReportDateStr() {
-  return calcStartDate().format('MM-DD')
+  return dateUtil.calcStartDate().format('MM-DD')
 }
 
 function getSubmitAddress() {
@@ -263,7 +251,7 @@ module.exports = {
     }
   },
   created: function () {
-    this.page = 'history-items'
+    //this.page = 'history-items'
     this.loadLastBuffer()
   },
   data: function() {
