@@ -80,6 +80,7 @@ import EditorComponent from './Editor.vue'
 import PreviewerComponent from './Previewer.vue'
 import HistoryComponent from './History.vue'
 import * as dateUtil from './js/date-util.js'
+import * as mailUtil from './js/mail-util.js'
 
 moment.locale('ja', {
   weekdays: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
@@ -127,34 +128,10 @@ function defaultTemplate(app) {
   app.changeContentA(buf)
 }
 
-function getReportDateStr() {
-  return dateUtil.calcStartDate().format('MM-DD')
-}
-
-function getSubmitAddress() {
-  return 'someone@example.com'
-}
-
-function getSubject() {
-  return 'Weekly Report ' + getReportDateStr()
-}
-
-function encodeBody(text) {
-  return text.replace(/\n/g, ' %0D%0A ')
-}
-
-function composeMailLink(content) {
-  return 'mailto:' + getSubmitAddress() + '?subject=' + getSubject() + '&body=' + encodeBody(content)
-}
-
 function sendMail(url) {
   console.log('>>defaultTemplate()')
   const link = document.querySelector('.send-mail-link')
   link.click()
-
-  // var elem = this.$refs.sendMailLink
-  // var prevented = elem.dispatchEvent(new Event('click'))
-  // if (prevented) { } // A handler used event.preventDefault()  
 }
 
 function loadLast(buf) {
@@ -217,28 +194,6 @@ function save(filename, txt) {
   }
 }
 
-function getFilenames() {
-  console.log('>>getFilenames()')
-
-  // 指定ディレクトリを検索して一覧を表示
-  var list = []
-  fs.readdirSync(getDataDir(), function (err, files) {
-    
-    // filesの中身を繰り替えして出力
-    files.forEach(function (file) {
-      var _type = ""
-      if (fs.statSync(_dir + "/" + file).isFile()) {
-        _type = "file     :"
-        list.add(file)
-      } else {
-        _type = "directory:"
-      }
-      console.log(_type + _dir + "/" + file)
-    })
-  })
-  return list
-}
-
 module.exports = {
   components: {
     editor: EditorComponent,
@@ -247,7 +202,7 @@ module.exports = {
   },
   computed: {
     mailLinkA: function () {
-      return composeMailLink(this.contentA)
+      return mailUtil.composeMailLink(this.contentA)
     }
   },
   created: function () {
