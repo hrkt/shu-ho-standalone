@@ -15,7 +15,8 @@
           <button type="button" class="btn btn-link" disabled><span class="glyphicon glyphicon-copy" aria-hidden="true"></span>Copy from the last report</button>
           <button type="button" class="btn btn-link" v-on:click="saveCurrentBuffer()"><span class="glyphicon glyphicon-save" aria-hidden="true"></span>Save current</button>
           <button type="button" class="btn btn-link" v-on:click="loadLastBuffer()"><span class="glyphicon glyphicon-open" aria-hidden="true"></span>Load Last</button>
-          <button type="button" class="btn btn-link send-mail" v-on:click="sendMail"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>Send Mail</button>
+          <button type="button" class="btn btn-link send-mail" v-on:click="sendMail()"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>Send Mail</button>
+          <button type="button" class="btn btn-link" v-on:click="showHistoryView()"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>History</button>
           <button type="button" class="btn btn-link" v-on:click="showPreview()"><span class="glyphicon glyphicon-play" aria-hidden="true"></span>Preview</button>
         </div>
       </div>
@@ -52,7 +53,7 @@
         <div class="col-md-12">
           <div style="height: 400px">
             <h2>History</h2>
-            <history-items histroy-id="historyA"></history-items>
+            <history-items histroy-id="historyA" v-on:showHistory="historyItemSelected"></history-items>
           </div>
         </div>
       </div>
@@ -250,7 +251,9 @@ module.exports = {
     }
   },
   created: function () {
-    //this.page = 'history-items'
+    if(process.env.NODE_ENV == 'develop') {
+      this.page = 'history-items'
+    }
     this.loadLastBuffer()
   },
   data: function() {
@@ -280,6 +283,9 @@ module.exports = {
     loadLastBuffer: function () {
       this.contentA = loadLast()
     },
+    showHistoryView(d) {
+      this.page = 'history-items'
+    },
     template: function () {
       defaultTemplate(this)
     },
@@ -288,6 +294,10 @@ module.exports = {
     },
     sendMail: function () {
       sendMail(this.mailLinkA)
+    },
+    historyItemSelected: function (msg) {
+      console.log('selected:' + msg)
+      this.showEditor()
     },
     showEditor: function () {
       this.page = 'editor'
