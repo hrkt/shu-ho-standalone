@@ -70,8 +70,6 @@ import path from 'path'
 import mkdirp from 'mkdirp'
 import electron from 'electron'
 const app=electron.remote.app
-import mustache from 'mustache'
-import moment from 'moment'
 import ace from 'brace'
 import bootstrap from 'bootstrap'
 import Vue from 'vue'
@@ -81,52 +79,7 @@ import PreviewerComponent from './Previewer.vue'
 import HistoryComponent from './History.vue'
 import * as dateUtil from './js/date-util.js'
 import * as mailUtil from './js/mail-util.js'
-
-moment.locale('ja', {
-  weekdays: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日'],
-  weekdaysShort: ['日', '月', '火', '水', '木', '金', '土'],
-})
-
-function week(startDate) {
-  var template = ''
-  template += '|Date       |Work|' + '\n'
-  template += '|:---------|:--|' + '\n'
-  const defaultWork = '作業日'
-  for (var i of [1, 2, 3, 4, 5, 6, 7]) {
-    template += '|{{date' + i + '}}|{{work' + i + '}}|' + '\n'
-  }
-  var values = {}
-  var d = startDate
-  for (var i of [1, 2, 3, 4, 5, 6, 7]) {
-    values['date' + i] = d.format('MM-DD(ddd)')
-    if (dateUtil.isOffDay(d)) {
-      values['work' + i] = '休み'
-    } else {
-      values['work' + i] = defaultWork
-    }
-    d.add(1, 'day')
-  }
-  return mustache.render(template, values)
-}
-
-function defaultTemplate(app) {
-  console.log('>>defaultTemplate()')
-
-  var buf = ''
-
-  const title1 = '## Record of the week\n\n'
-  buf += title1
-  buf += week(dateUtil.calcStartDate().subtract(7, 'day'))
-
-  const title2 = '\n\n## Plan for the next week\n\n'
-  buf += title2
-  buf += week(dateUtil.calcStartDate())
-
-  const title3 = '\n\n## Topics\n\n'
-  buf += title3
-
-  app.changeContentA(buf)
-}
+import * as templateGen from './js/template-generator.js'
 
 function sendMail(url) {
   console.log('>>defaultTemplate()')
@@ -242,7 +195,8 @@ module.exports = {
       this.page = 'history-items'
     },
     template: function () {
-      defaultTemplate(this)
+      const buf = templateGen.generateTemplate()
+      app.changeContentA(buf)
     },
     saveCurrentBuffer: function () {
       saveCurrent(this.contentA)
