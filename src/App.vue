@@ -81,12 +81,6 @@ import * as dateUtil from './js/date-util.js'
 import * as mailUtil from './js/mail-util.js'
 import * as templateGen from './js/template-generator.js'
 
-function sendMail(url) {
-  console.log('>>defaultTemplate()')
-  const link = document.querySelector('.send-mail-link')
-  link.click()
-}
-
 function loadLast(buf) {
   console.log('>>loadLastBuffer()')
   try {
@@ -202,7 +196,8 @@ module.exports = {
       saveCurrent(this.contentA)
     },
     sendMail: function () {
-      sendMail(this.mailLinkA)
+      const link = document.querySelector('.send-mail-link')
+      link.click()
     },
     historyItemSelected: function (msg) {
       console.log('selected:' + msg)
