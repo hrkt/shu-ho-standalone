@@ -66,8 +66,6 @@
 'use strict'
 
 import fs from 'fs'
-import path from 'path'
-import mkdirp from 'mkdirp'
 import electron from 'electron'
 const app=electron.remote.app
 import ace from 'brace'
@@ -80,66 +78,7 @@ import HistoryComponent from './History.vue'
 import * as dateUtil from './js/date-util.js'
 import * as mailUtil from './js/mail-util.js'
 import * as templateGen from './js/template-generator.js'
-
-function loadLast(buf) {
-  console.log('>>loadLastBuffer()')
-  try {
-    const jsonStr = fs.readFileSync(app.getPath('userData') + '/currentBuffer.json', 'utf-8')
-    const json = JSON.parse(jsonStr)
-    const b64Txt = json['buf']
-    const b = new Buffer(b64Txt, 'base64')
-    console.log('Load last buffer.')
-    return b.toString()
-  } catch (err) {
-    // return empty string when the buffer file is not found
-    return ''
-    //throw err
-  }
-}
-
-function saveCurrent(buf) {
-  console.log('>>saveCurrent()')
-  const b = new Buffer(buf)
-  const b64Txt = b.toString('base64')
-  const txt = '{\'buf\': \'' + b64Txt + '\'}'
-  try {
-    fs.writeFileSync(app.getPath('userData') + '/currentBuffer.json', txt, 'utf-8')
-    console.log('Saved current buffer.')
-  } catch (err) {
-    throw err
-  }
-}
-
-function saveSettings() {
-  console.log('>>saveSettings()')
-  const txt = '{\'key\': \'Hello\'}'
-  try {
-    alert(app.getPath('userData'))
-    fs.writeFileSync(app.getPath('userData') + '/shu-ho-settings.json', txt, 'utf-8')
-    console.log('Saved settings.')
-  } catch (err) {
-    throw err
-  }
-}
-
-// history
-
-function getDataDir() {
-  return app.getPath('userData')
-}
-
-function save(filename, txt) {
-  console.log('>>save()')
-  try {
-    mkdirp(path.getDirName(path), function (err) {
-      if (err) return cb(err)
-      fs.writeFileSync(getDataDir() + '/' + filename, txt, 'utf-8')
-    })
-    fs.writeFileSync(getDataDir() + '/' + filename, txt, 'utf-8')
-  } catch (err) {
-    throw err
-  }
-}
+import * as fileIo from './js/file-io.js'
 
 module.exports = {
   components: {
@@ -183,7 +122,7 @@ module.exports = {
       this.contentA = 'reset content for Editor A'
     },
     loadLastBuffer: function () {
-      this.contentA = loadLast()
+      this.contentA = fileIo.load(app.getPath('userData') + '/currentBuffer.json', 'utf-8')
     },
     showHistoryView(d) {
       this.page = 'history-items'
@@ -193,7 +132,7 @@ module.exports = {
       app.changeContentA(buf)
     },
     saveCurrentBuffer: function () {
-      saveCurrent(this.contentA)
+      fileIo.saveWithEncoding(app.getPath('userData') + '/currentBuffer.json', buf)
     },
     sendMail: function () {
       const link = document.querySelector('.send-mail-link')
