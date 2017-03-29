@@ -51,7 +51,7 @@ exports.load = function (path, encoding) {
     console.log('Load last buffer.')
     return b.toString()
   } catch (err) {
-    console.error(err)
+    console.log(err)
     // return empty string when the buffer file is not found
     return ''
   }
