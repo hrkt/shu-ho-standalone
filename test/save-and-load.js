@@ -4,7 +4,7 @@ import chai from 'chai'
 const should = chai.should
 const expect = chai.expect
 
-import fileio from '../js/service/file-io'
+import fileio from '../src/js/file-io'
 
 describe('list files', function () {
   const list = fileio.getFilenames('.')
