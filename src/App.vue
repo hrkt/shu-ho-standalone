@@ -129,7 +129,7 @@ module.exports = {
     },
     template: function () {
       const buf = templateGen.generateTemplate()
-      app.changeContentA(buf)
+      this.changeContentA(buf)
     },
     saveCurrentBuffer: function () {
       fileIo.saveWithEncoding(app.getPath('userData') + '/currentBuffer.json', buf)
