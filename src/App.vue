@@ -132,7 +132,7 @@ module.exports = {
       this.changeContentA(buf)
     },
     saveCurrentBuffer: function () {
-      fileIo.saveWithEncoding(app.getPath('userData') + '/currentBuffer.json', buf)
+      fileIo.saveWithEncoding(app.getPath('userData') + '/currentBuffer.json', this.contentA)
     },
     sendMail: function () {
       const link = document.querySelector('.send-mail-link')
