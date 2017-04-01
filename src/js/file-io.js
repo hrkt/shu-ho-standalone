@@ -30,25 +30,25 @@ exports.save = function (filename, txt) {
   }
 }
 
-exports.saveWithBases64 = function (path, buf) {
+exports.saveWithBase64 = function (path, buf) {
   const b = new Buffer(buf)
   const b64Txt = b.toString('base64')
-  const txt = '{\'buf\': \'' + b64Txt + '\'}'
+  var obj = { 'buf': b64Txt }
   try {
-    fs.writeFileSync(path, txt, 'utf-8')
+    fs.writeFileSync(path, JSON.stringify(obj), 'utf-8')
     console.log('Saved current buffer.')
   } catch (err) {
     throw err
   }
 }
 
-exports.load = function (path, encoding) {
+exports.load = function (path) {
+  const encoding = 'UTF-8'
+  console.log('load:' + path)
   try {
     const jsonStr = fs.readFileSync(path, encoding)
-    const json = JSON.parse(jsonStr)
-    const b64Txt = json['buf']
-    const b = new Buffer(b64Txt, 'base64')
-    console.log('Load last buffer.')
+    const json = JSON.parse(jsonStr.toString())
+    const b = new Buffer(json['buf'], 'base64')
     return b.toString()
   } catch (err) {
     console.log(err)

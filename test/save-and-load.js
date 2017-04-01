@@ -4,25 +4,38 @@ import chai from 'chai'
 const should = chai.should
 const expect = chai.expect
 
-import fileio from '../src/js/file-io'
+import fileIo from '../src/js/file-io'
 
 describe('list files', function () {
-  const list = fileio.getFilenames('.')
+  const list = fileIo.getFilenames('.')
   console.log(list)
 
   it('reads directory without error', function () {
-    expect(fileio.getFilenames('.')).to.be.a('array')
+    expect(fileIo.getFilenames('.')).to.be.a('array')
   })
 
   it('returns at least 3 filenames', function () {
-    expect(fileio.getFilenames('.')).to.have.length.of.at.least(3)
+    expect(fileIo.getFilenames('.')).to.have.length.of.at.least(3)
   })
 
   it('throws an error when directory does not exist', function () {
     try {
-      fileio.getFilenames('/nowhere')
+      fileIo.getFilenames('/nowhere')
     } catch (err) {
       expect(err).to.have.property('code').equal('ENOENT')
     }
+  })
+})
+
+describe('save and load file', function () {
+  const path = 'test.txt'
+  
+  it('save file without error', function () {
+    fileIo.saveWithBase64(path, 'aaa')
+  })
+
+  it('load file without error', function () {
+    const buf = fileIo.load(path)
+    expect(buf).to.be.a('string')
   })
 })
