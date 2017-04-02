@@ -1,5 +1,6 @@
 'use strict'
 
+import fs from 'fs'
 import chai from 'chai'
 const should = chai.should
 const expect = chai.expect
@@ -37,5 +38,12 @@ describe('save and load file', function () {
   it('load file without error', function () {
     const buf = fileIo.load(path)
     expect(buf).to.be.a('string')
+
+    expect(buf).to.contain('aaa')
+  })
+
+  after (function (done) {
+    fs.unlinkSync('test.txt')
+    done()
   })
 })
