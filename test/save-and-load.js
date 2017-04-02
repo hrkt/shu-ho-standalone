@@ -2,7 +2,7 @@
 
 import fs from 'fs'
 import chai from 'chai'
-const should = chai.should
+// const should = chai.should
 const expect = chai.expect
 
 import fileIo from '../src/js/file-io'
@@ -30,7 +30,7 @@ describe('list files', function () {
 
 describe('save and load file', function () {
   const path = 'test.txt'
-  
+
   it('save file without error', function () {
     fileIo.saveWithBase64(path, 'aaa')
   })
@@ -42,7 +42,7 @@ describe('save and load file', function () {
     expect(buf).to.contain('aaa')
   })
 
-  after (function (done) {
+  after(function (done) {
     fs.unlinkSync('test.txt')
     done()
   })
