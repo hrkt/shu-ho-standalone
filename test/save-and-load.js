@@ -2,10 +2,11 @@
 
 import fs from 'fs'
 import chai from 'chai'
-// const should = chai.should
+const should = chai.should
 const expect = chai.expect
+import rimraf from 'rimraf'
 
-import fileIo from '../src/js/file-io'
+import fileIo from '../src/js/file-io.js'
 
 describe('list files', function () {
   const list = fileIo.getFilenames('.')
@@ -25,6 +26,23 @@ describe('list files', function () {
     } catch (err) {
       expect(err).to.have.property('code').equal('ENOENT')
     }
+  })
+})
+
+describe('prepare data dir', function () {
+  const testDirName = 'testdir'
+  it('create data dir without error', function () {
+    try {
+      fileIo.prepareDirIfNotExist(testDirName)
+    } catch (err) {
+      console.error(err)
+      expect.fail(err)
+    }
+  })
+
+ after(function (done) {
+    rimraf.sync(testDirName)
+    done()
   })
 })
 

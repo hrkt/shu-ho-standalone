@@ -14,7 +14,7 @@
           <button type="button" class="btn btn-link" v-on:click="template()"><span class="glyphicon glyphicon-file" aria-hidden="true"></span>Template</button>
           <button type="button" class="btn btn-link" disabled><span class="glyphicon glyphicon-copy" aria-hidden="true"></span>Copy from the last report</button>
           <button type="button" class="btn btn-link" v-on:click="saveCurrentBuffer()"><span class="glyphicon glyphicon-save" aria-hidden="true"></span>Save current</button>
-          <button type="button" class="btn btn-link" v-on:click="loadLastBuffer()"><span class="glyphicon glyphicon-open" aria-hidden="true"></span>Load Last</button>
+          <button type="button" class="btn btn-link" v-on:click="loadLastBuffer()" disabled><span class="glyphicon glyphicon-open" aria-hidden="true"></span>Load Last</button>
           <button type="button" class="btn btn-link send-mail" v-on:click="sendMail()"><span class="glyphicon glyphicon-send" aria-hidden="true"></span>Send Mail</button>
           <button type="button" class="btn btn-link" v-on:click="showHistoryView()"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>History</button>
           <button type="button" class="btn btn-link" v-on:click="showPreview()"><span class="glyphicon glyphicon-play" aria-hidden="true"></span>Preview</button>
@@ -53,7 +53,7 @@
         <div class="col-md-12">
           <div style="height: 400px">
             <h2>History</h2>
-            <history-items histroy-id="historyA" v-on:showHistory="historyItemSelected"></history-items>
+            <history-items histroy-id="historyA" v-bind:dataPath="dataPath" v-on:showHistory="historyItemSelected"></history-items>
           </div>
         </div>
       </div>
@@ -79,6 +79,7 @@ import * as dateUtil from './js/date-util.js'
 import * as mailUtil from './js/mail-util.js'
 import * as templateGen from './js/template-generator.js'
 import * as fileIo from './js/file-io.js'
+import * as appConstants from './js/app-constants.js'
 
 module.exports = {
   components: {
@@ -95,13 +96,15 @@ module.exports = {
     if(process.env.NODE_ENV == 'develop') {
       this.page = 'history-items'
     }
+    fileIo.prepareDirIfNotExist(app.getPath('userData') + '/' + appConstants.DATA_DIR)
     this.loadLastBuffer()
   },
   data: function() {
     return {
       page: 'editor',
       contentA: '# hint\nclick \'Template\' button to get template content.',
-      appVersion: process.env.npm_package_version
+      appVersion: process.env.npm_package_version,
+      dataPath: app.getPath('userData') + '/' + appConstants.DATA_DIR
     }
   },
   methods: {
@@ -132,7 +135,7 @@ module.exports = {
       this.changeContentA(buf)
     },
     saveCurrentBuffer: function () {
-      fileIo.saveWithEncoding(app.getPath('userData') + '/currentBuffer.json', this.contentA)
+      fileIo.saveWithBase64(this.dataPath + '/' + dateUtil.getTimestamp() + '.json', this.contentA)
     },
     sendMail: function () {
       const link = document.querySelector('.send-mail-link')
@@ -140,6 +143,8 @@ module.exports = {
     },
     historyItemSelected: function (msg) {
       console.log('selected:' + msg)
+      const buf = fileIo.load(this.dataPath + '/' + msg)
+      this.contentA = buf
       this.showEditor()
     },
     showEditor: function () {

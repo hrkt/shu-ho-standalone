@@ -2,6 +2,8 @@ import fs from 'fs'
 import mkdirp from 'mkdirp'
 import path from 'path'
 
+import constants from './app-constants'
+
 exports.getFilenames = function (dir) {
   const list = fs.readdirSync(dir)
   return list.filter(
@@ -36,7 +38,7 @@ exports.saveWithBase64 = function (path, buf) {
   var obj = { 'buf': b64Txt }
   try {
     fs.writeFileSync(path, JSON.stringify(obj), 'utf-8')
-    console.log('Saved current buffer.')
+    console.log('Saved to' + path)
   } catch (err) {
     throw err
   }
@@ -55,4 +57,14 @@ exports.load = function (path) {
     // return empty string when the buffer file is not found
     return ''
   }
+}
+
+exports.prepareDirIfNotExist = function (target) {
+  mkdirp(target, function (err) {
+    if(err) {
+      throw e
+    } else {
+      //success
+    }
+  })
 }
