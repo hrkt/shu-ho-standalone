@@ -16,7 +16,7 @@
     "lint": "./node_modules/.bin/eslint js",
     "release:clean": "./node_modules/.bin/rimraf ./dist",
     "start": "./node_modules/.bin/electron .",
-    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register test",
+    "test": "./node_modules/.bin/mocha --compilers js:babel-core/register",
     "version": "ELECTRON_RUN_AS_NODE=1 ./node_modules/.bin/electron -e 'process.stdout.write(process.versions.modules)'"
   },
   "author": "Hiroki Ito <hiroki110@gmail.com>",
