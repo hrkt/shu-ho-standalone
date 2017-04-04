@@ -1,6 +1,6 @@
 {
   "name": "shu-ho-standalone",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Shu-ho, a weekly-report editing application",
   "repository": {
     "type": "git",
