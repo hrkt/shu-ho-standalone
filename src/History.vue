@@ -21,22 +21,8 @@ export default {
   },
   data: function () {
     return {
-      //items: [{ title: '1', data: 'data1' }]
       items: this.getHistories()
     }
-      // items: [
-      // { title: '1', data: 'data1' }, { title: '2', data: 'data1'  }, { title: '3', data: 'data1'  }
-      // ]
-      // items: function() {
-      //   // { title: '1', data: 'data1' }, { title: '2', data: 'data1'  }, { title: '3', data: 'data1'  }
-      //   const files = this.getHistories()
-      //   console.log("files:")
-      //   console.dir(files)
-      //   for (var f in files) {
-      //     var ret = {title: f, data: f}
-      //   }
-      //   return ret
-      // }
   },
   name: 'history',
   methods: {
@@ -45,6 +31,7 @@ export default {
       if (null === files) {
         return []
       }
+      files.sort().reverse();
       return files.map(function (f) {return {title: f, data: f}})
     },
     historySelected: function (v) {
