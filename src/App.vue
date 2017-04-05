@@ -145,7 +145,7 @@ module.exports = {
     },
     historyItemSelected: function (filename) {
       console.log('selected:' + filename)
-      const buf = fileIo.load(path.join(this.dataPath, msg))
+      const buf = fileIo.load(path.join(this.dataPath, filename))
       this.contentA = buf
       this.showEditor()
     },
