@@ -70,16 +70,18 @@ import electron from 'electron'
 const app=electron.remote.app
 import ace from 'brace'
 import bootstrap from 'bootstrap'
+import path from 'path'
 import Vue from 'vue'
 
 import EditorComponent from './Editor.vue'
 import PreviewerComponent from './Previewer.vue'
 import HistoryComponent from './History.vue'
+
+import * as appConstants from './js/app-constants.js'
 import * as dateUtil from './js/date-util.js'
+import * as fileIo from './js/file-io.js'
 import * as mailUtil from './js/mail-util.js'
 import * as templateGen from './js/template-generator.js'
-import * as fileIo from './js/file-io.js'
-import * as appConstants from './js/app-constants.js'
 
 module.exports = {
   components: {
@@ -104,7 +106,7 @@ module.exports = {
       page: 'editor',
       contentA: '# hint\nclick \'Template\' button to get template content.',
       appVersion: process.env.npm_package_version,
-      dataPath: app.getPath('userData') + '/' + appConstants.DATA_DIR
+      dataPath: path.join(app.getPath('userData'), appConstants.DATA_DIR)
     }
   },
   methods: {
@@ -125,7 +127,7 @@ module.exports = {
       this.contentA = 'reset content for Editor A'
     },
     loadLastBuffer: function () {
-      this.contentA = fileIo.load(app.getPath('userData') + '/currentBuffer.json', 'utf-8')
+      this.contentA = fileIo.load(path.join(app.getPath('userData'), '/currentBuffer.json'), 'utf-8')
     },
     showHistoryView(d) {
       this.page = 'history-items'
@@ -135,15 +137,15 @@ module.exports = {
       this.changeContentA(buf)
     },
     saveCurrentBuffer: function () {
-      fileIo.saveWithBase64(this.dataPath + '/' + dateUtil.getTimestamp() + '.json', this.contentA)
+      fileIo.saveWithBase64(path.join(this.dataPath, dateUtil.getTimestamp()) + '.json', this.contentA)
     },
     sendMail: function () {
       const link = document.querySelector('.send-mail-link')
       link.click()
     },
-    historyItemSelected: function (msg) {
-      console.log('selected:' + msg)
-      const buf = fileIo.load(this.dataPath + '/' + msg)
+    historyItemSelected: function (filename) {
+      console.log('selected:' + filename)
+      const buf = fileIo.load(path.join(this.dataPath, msg))
       this.contentA = buf
       this.showEditor()
     },

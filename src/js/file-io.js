@@ -24,9 +24,9 @@ exports.save = function (filename, txt) {
       if (err) {
         throw err
       }
-      fs.writeFileSync(this.getDataDir() + '/' + filename, txt, 'utf-8')
+      fs.writeFileSync(path.join(this.getDataDir(), filename), txt, 'utf-8')
     })
-    fs.writeFileSync(this.getDataDir() + '/' + filename, txt, 'utf-8')
+    fs.writeFileSync(path.join(this.getDataDir(), filename), txt, 'utf-8')
   } catch (err) {
     throw err
   }
