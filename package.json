@@ -13,7 +13,7 @@
     "build-v": "./node_modules/.bin/webpack --display-error-details --config webpack.config.js",
     "clean": "./node_modules/.bin/npm-run-all -s release:clean",
     "dev": "NODE_ENV=develop ./node_modules/.bin/electron .",
-    "lint": "./node_modules/.bin/eslint js",
+    "lint": "./node_modules/.bin/eslint src/js",
     "release:clean": "./node_modules/.bin/rimraf ./dist",
     "start": "./node_modules/.bin/electron .",
     "test": "./node_modules/.bin/mocha --compilers js:babel-core/register",
