@@ -22,7 +22,7 @@
       </div>
       <div v-if="page === 'preview'">
         <div class="col-md-12">
-          [Preview]
+        <div class="alert alert-info" role="alert">[Preview]</div>
           <button type="button" class="btn btn-link" v-on:click="showEditor()"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>Edit</button>
         </div>
       </div>
@@ -51,6 +51,9 @@
     <div v-if="page === 'history-items'">
       <div class="row">
         <div class="col-md-12">
+          <div class="alert alert-info" role="alert">[History]</div>
+            <button type="button" class="btn btn-link" v-on:click="showEditor()"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>Edit</button>
+          </div>
           <div style="height: 400px">
             <h2>History</h2>
             <history-items histroy-id="historyA" v-bind:dataPath="dataPath" v-on:showHistory="historyItemSelected"></history-items>
