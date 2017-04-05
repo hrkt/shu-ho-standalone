@@ -127,7 +127,7 @@ module.exports = {
       this.contentA = 'reset content for Editor A'
     },
     loadLastBuffer: function () {
-      this.contentA = fileIo.load(path.join(app.getPath('userData'), '/currentBuffer.json'), 'utf-8')
+      this.contentA = fileIo.load(path.join(app.getPath('userData'), 'currentBuffer.json'), 'utf-8')
     },
     showHistoryView(d) {
       this.page = 'history-items'
