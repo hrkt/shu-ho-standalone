@@ -1,6 +1,9 @@
 
 <template>
-<div :id='previewerId' style='width: 100% height: 100%' v-html='content'></div>
+<div :id='previewerId'>
+  <span class="label label-default">{{title}}</span>
+  <div style='width: 100% height: 100%' v-html='content'></div>
+</div>
 </template>
 
 <script>
@@ -13,6 +16,6 @@ export default {
     }
   },
   name: 'previewer',
-  props: ['previewerId', 'parentContent'],
+  props: ['previewerId', 'parentContent', 'title'],
 }
 </script>

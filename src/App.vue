@@ -43,7 +43,7 @@
       <div class="row">
         <div class="col-md-12">
           <div class='preview' style="height: 400px">
-            <previewer previewer-id="previewerA" v-bind:parentContent='contentA'></previewer>
+            <previewer previewer-id="previewerA" v-bind:parentContent='contentA' v-bind:title='previewTitle'></previewer>
           </div>
         </div>
       </div>
@@ -109,7 +109,8 @@ module.exports = {
       page: 'editor',
       contentA: '# hint\nclick \'Template\' button to get template content.',
       appVersion: process.env.npm_package_version,
-      dataPath: path.join(app.getPath('userData'), appConstants.DATA_DIR)
+      dataPath: path.join(app.getPath('userData'), appConstants.DATA_DIR),
+      previewTitle: ''
     }
   },
   methods: {
