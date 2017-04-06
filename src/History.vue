@@ -32,7 +32,10 @@ export default {
         return []
       }
       files.sort().reverse();
-      return files.map(function (f) {return {title: f, data: f}})
+      return files.map(function (f) {
+        const t = f.replace(/\.json$/, '')
+        return {title: t, data: f}
+      })
     },
     historySelected: function (v) {
       console.log(JSON.stringify(v))
