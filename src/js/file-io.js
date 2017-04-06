@@ -2,7 +2,7 @@ import fs from 'fs'
 import mkdirp from 'mkdirp'
 import path from 'path'
 
-import constants from './app-constants'
+// import constants from './app-constants'
 
 exports.getFilenames = function (dir) {
   const list = fs.readdirSync(dir)
