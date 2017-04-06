@@ -1,6 +1,5 @@
 <template>
   <div :id="'history-id'" style="width: 100% height: 100%">
-  This function is under development.
     <ul>
       <li v-for="item in items">
         <button v-on:click="historySelected(item)" v-bind:value="item.value">{{ item.title }}</button>
