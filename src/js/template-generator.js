@@ -13,12 +13,13 @@ function week (startDate) {
   template += '|Date       |Work|' + '\n'
   template += '|:---------|:--|' + '\n'
   const defaultWork = '作業日'
-  for (var i of [1, 2, 3, 4, 5, 6, 7]) {
+  var i
+  for (i of [1, 2, 3, 4, 5, 6, 7]) {
     template += '|{{date' + i + '}}|{{work' + i + '}}|' + '\n'
   }
   var values = {}
   var d = startDate
-  for (var i of [1, 2, 3, 4, 5, 6, 7]) {
+  for (i of [1, 2, 3, 4, 5, 6, 7]) {
     values['date' + i] = d.format('MM-DD(ddd)')
     if (dateUtil.isOffDay(d)) {
       values['work' + i] = '休み'
