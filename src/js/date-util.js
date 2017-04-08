@@ -13,7 +13,7 @@ export function calcStartDate () {
   return startDayOfWeekFor(s)
 }
 
-export function getTimestamp() {
+export function getTimestamp () {
   const d = moment(new Date())
   return d.format('YYYYMMDD_HHmmss')
 }
