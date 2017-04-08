@@ -61,10 +61,10 @@ exports.load = function (path) {
 
 exports.prepareDirIfNotExist = function (target) {
   mkdirp(target, function (err) {
-    if(err) {
-      throw e
+    if (err) {
+      throw err
     } else {
-      //success
+      // success
     }
   })
 }
