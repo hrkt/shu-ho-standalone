@@ -4,6 +4,11 @@ import path from 'path'
 
 // import constants from './app-constants'
 
+exports.delete = function (path) {
+  console.log('delete: ' + path)
+  fs.unlinkSync(path)
+}
+
 exports.getFilenames = function (dir) {
   const list = fs.readdirSync(dir)
   return list.filter(
