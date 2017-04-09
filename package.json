@@ -9,8 +9,8 @@
   "scripts": {
     "bootlint": "/bin/cat index.html | ./node_modules/.bin/bootlint ",
     "build": "./node_modules/.bin/webpack --config webpack.config.js",
-    "build-w": "./node_modules/.bin/webpack --config webpack.config.js --watch",
     "build-v": "./node_modules/.bin/webpack --display-error-details --config webpack.config.js",
+    "build-w": "./node_modules/.bin/webpack --config webpack.config.js --watch",
     "clean": "./node_modules/.bin/npm-run-all -s release:clean",
     "count": "./node_modules/.bin/sloc --details --format cli-table --keys total,source,comment --format-option no-head src/",
     "dev": "NODE_ENV=develop ./node_modules/.bin/electron .",
