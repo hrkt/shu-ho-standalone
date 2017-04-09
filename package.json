@@ -1,6 +1,6 @@
 {
   "name": "shu-ho-standalone",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Shu-ho, a weekly-report editing application",
   "repository": {
     "type": "git",
@@ -15,6 +15,7 @@
     "count": "./node_modules/.bin/sloc --details --format cli-table --keys total,source,comment --format-option no-head src/",
     "dev": "NODE_ENV=develop ./node_modules/.bin/electron .",
     "lint": "./node_modules/.bin/eslint src/js",
+    "release:mac": "./node_modules/.bin/electron-packager ./ --platform=darwin --overwrite",
     "release:clean": "./node_modules/.bin/rimraf ./dist",
     "start": "./node_modules/.bin/electron .",
     "test": "./node_modules/.bin/mocha --compilers js:babel-core/register",
