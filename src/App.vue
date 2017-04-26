@@ -1,10 +1,5 @@
 <template>
   <div id="index" class="container">
-    <div class="page-header">
-      <h1>Shu-ho<small> Standalone {{appVersion}}</small>
-        <button type="button" class="btn btn-link" onClick="saveSettings()" disabled><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>Settings</button>
-      </h1>
-    </div>
     <div class="row">
       <div v-if="page === 'editor'">
         <div class="col-md-12">
