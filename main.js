@@ -5,15 +5,15 @@ const app = electron.app
 const BrowserWindow = electron.BrowserWindow
 
 // for auto reloading in dev env
-//require('electron-reload')(__dirname)
+// require('electron-reload')(__dirname)
 
 const path = require('path')
 const url = require('url')
 
-// Main window 
+// Main window
 let mainWindow
 
-function createWindow() {
+function createWindow () {
   mainWindow = new BrowserWindow({
     width: 1024,
     height: 800,
@@ -30,9 +30,9 @@ function createWindow() {
     slashes: true
   }))
 
-  // invoke dev tools 
+  // invoke dev tools
   console.log(process.env.NODE_ENV)
-  if(process.env.NODE_ENV == 'develop') {
+  if (process.env.NODE_ENV === 'develop') {
     mainWindow.webContents.openDevTools()
   }
 
@@ -56,7 +56,7 @@ app.on('window-all-closed', function () {
 
 // application is activated. [Mac] The dock icon is clicked.
 app.on('activate', function () {
-  /// when we dont have main window, create it.
+  // when we dont have main window, create it.
   if (mainWindow === null) {
     createWindow()
   }
